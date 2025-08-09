@@ -24,9 +24,19 @@ app.post('/generate', async (req, res) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 prompt: prompt,
-                steps: 20,
-                width: 512,
-                height: 512
+                steps: 50,
+                cfg_scale: 8,
+                sampler_name: "DPM++ SDE Karras",
+                seed: 123456789,
+                width: 1024,
+                height: 1024,
+
+                // Hires. fix settings
+                enable_hr: true,
+                hr_scale: 2, // Upscale factor (2x = 2048x2048)
+                hr_upscaler: "Latent", // Options: Latent, ESRGAN_4x, R-ESRGAN 4x+, etc.
+                hr_second_pass_steps: 20, // Optional: number of steps for the second pass
+                denoising_strength: 0.4 // Controls how much detail is regenerated
             })
         });
 
